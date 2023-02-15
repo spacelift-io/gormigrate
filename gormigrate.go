@@ -382,7 +382,7 @@ func (g *Gormigrate) createMigrationTableIfNotExists() error {
 }
 
 func (g *Gormigrate) migrationRan(m *Migration) (bool, error) {
-	var count int
+	var count int64
 	err := g.tx.
 		Table(g.options.TableName).
 		Where(fmt.Sprintf("%s = ?", g.options.IDColumnName), m.ID).
@@ -403,7 +403,7 @@ func (g *Gormigrate) canInitializeSchema() (bool, error) {
 	}
 
 	// If the ID doesn't exist, we also want the list of migrations to be empty
-	var count int
+	var count int64
 	err = g.tx.
 		Table(g.options.TableName).
 		Count(&count).
